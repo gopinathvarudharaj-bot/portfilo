@@ -40,7 +40,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 selection:bg-emerald-500 selection:text-black">
+    <div className="flex flex-col min-h-screen bg-black text-slate-100 selection:bg-emerald-500 selection:text-black">
       {/* Cyber Sticky Navigation */}
       <CyberNavbar
         onOpenQuestionnaire={() => setQuestionnaireOpen(true)}

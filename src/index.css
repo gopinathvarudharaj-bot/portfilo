@@ -1,14 +1,38 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 380px;
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4k: 2560px;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   body {
     background-color: #030708;
     color: #f1f5f9;
     overflow-x: hidden;
+    width: 100%;
+    min-width: 320px;
+  }
+}
+
+/* TV & Ultra-Wide Large Display Optimization */
+@media (min-width: 2560px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 3840px) {
+  html {
+    font-size: 22px;
   }
 }
 

@@ -27,16 +27,16 @@ export const personalInfo: PersonalInfo = {
     developmentPhilosophy: "I approach software engineering with a 'Security-by-Design' mindset, paired with high-craft UI/UX and modern AI-assisted development workflows. I believe security and intuitive user experiences must be ingrained into every data model, API endpoint, and reactive frontend component from day one.",
     futureGoals: "My aspiration is to engineer impactful, secure digital products — creating resilient cloud services, cutting-edge interactive web/mobile applications, and contributing to high-stakes defense and vulnerability research."
   },
-  location: 'Kadayanallur, Tamil Nadu, India',
+  location: 'Namakkal, Tamil Nadu, India',
   email: 'gopinathvarudharaj@gmail.com',
-  phone: '+91 93452 10892',
-  whatsappNumber: '919345210892',
-  whatsappDisplay: '+91 93452 10892',
+  phone: '+91 63825 99927',
+  whatsappNumber: '916382599927',
+  whatsappDisplay: '+91 63825 99927',
   linkedin: 'https://linkedin.com/in/gopinathvarudharaj',
   github: 'https://github.com/gopinathvarudharaj',
   instagram: 'https://instagram.com/gopinathvarudharaj',
   resumeUrl: '#resume',
-  avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+  avatarUrl: '/image.png',
   batchYears: '2024–2028'
 };
 
@@ -162,7 +162,7 @@ export const personalProjects: PersonalProject[] = [
     fullDesc: 'Engineered to provide streamlined personal financial management. Features real-time income vs. expense balance calculations, monthly budget limits, interactive category visualizations, receipt metadata tracking, and client-side encryption for private financial data.',
     imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1000&q=80',
     technologies: ['React', 'TypeScript', 'Recharts', 'Tailwind CSS', 'IndexedDB', 'Vercel'],
-    liveUrl: 'https://zenjournalapp.netlify.app/',
+    liveUrl: 'https://friendly-twilight-85d51e.netlify.app/',
     keyFeatures: [
       'Interactive income & expense breakdown charts with category analytics',
       'Monthly spending limit alerts and budget progress tracking',
@@ -174,26 +174,6 @@ export const personalProjects: PersonalProject[] = [
     impactBadge: 'FINANCE & ANALYTICS'
   },
   {
-    id: 'project-omnihub',
-    title: 'OmniHub — Multi-App Container',
-    subtitle: 'All-in-One Workspace for Deployed Web Applications',
-    category: 'Web App',
-    shortDesc: 'A unified container application that embeds, organizes, and seamlessly launches multiple deployed web applications from a single interactive cyber workspace.',
-    fullDesc: 'Solves context switching by uniting multiple independent web apps into one unified dashboard. Utilizes sandboxed execution boundaries, unified global state, custom app pinning, quick-switcher keyboard shortcuts, and performance isolation for Netlify and Vercel deployed projects.',
-    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80',
-    technologies: ['React', 'TypeScript', 'Sandboxed iFrames', 'Tailwind CSS', 'Vercel / Netlify'],
-    liveUrl: 'https://nutri-track-5toytglnm-gopinathvarudharaj-5095s-projects.vercel.app/metrics',
-    keyFeatures: [
-      'Centralized launcher embedding multiple live Vercel & Netlify applications',
-      'Zero-reload tab switching with sandboxed security isolation',
-      'Custom app pinning, category tags, and command palette navigation',
-      'Live memory and loading status telemetry HUD',
-      'Split-screen view mode for simultaneous side-by-side workflows'
-    ],
-    featured: true,
-    impactBadge: 'ALL-IN-ONE CONTAINER'
-  },
-  {
     id: 'project-together',
     title: 'Together — Two Friends, One Space',
     subtitle: 'Private Shared Digital Sanctuary for Two Friends',
@@ -202,7 +182,7 @@ export const personalProjects: PersonalProject[] = [
     fullDesc: 'Designed to move away from noisy social feeds into an intimate, secure digital space for two. Includes mutual mood check-ins, collaborative memory timelines with photo cards, private shared notes, ambient ping notifications, and invite-only encryption.',
     imageUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=80',
     technologies: ['React', 'Firebase Firestore', 'Tailwind CSS', 'Framer Motion', 'Netlify'],
-    liveUrl: 'https://zenjournalapp.netlify.app/',
+    liveUrl: 'https://friendu.netlify.app/',
     keyFeatures: [
       'Real-time Firestore synchronization between two authenticated accounts',
       'Interactive shared memory cards with milestone countdown timers',
@@ -215,7 +195,7 @@ export const personalProjects: PersonalProject[] = [
   },
   {
     id: 'project-zenjournal',
-    title: 'ZenJournal',
+    title: 'ZenJournal(Notepad)',
     subtitle: 'Secure & Private Mindfulness Journaling App',
     category: 'Web App',
     shortDesc: 'A secure, private digital journaling app focused on user data protection, local storage encryption, and a calming, distraction-free writing experience.',
@@ -262,8 +242,7 @@ export const personalProjects: PersonalProject[] = [
     fullDesc: 'Fresh Farm is an end-to-end full-stack web application designed for agricultural inventory management and seamless customer discovery. It features reactive item filtering, real-time cart state management, and direct communication integrations with sub-second page loads.',
     imageUrl: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1000&q=80',
     technologies: ['React', 'Tailwind CSS', 'Vercel', 'Netlify', 'REST APIs'],
-    liveUrl: 'https://freshfarm-topaz.vercel.app/',
-    alternativeLiveUrl: 'https://freshfarmshop.netlify.app/',
+    liveUrl: 'https://freshfarmshop.netlify.app/',
     keyFeatures: [
       'Dynamic product catalogue with instant search & category filtering',
       'Direct order dispatch and customer communication workflows',

@@ -26,33 +26,33 @@ export const CyberProjects: React.FC<CyberProjectsProps> = ({ onOpenContact }) =
     : personalProjects.filter(p => p.category === selectedFilter);
 
   return (
-    <section id="projects" className="py-20 md:py-28 bg-black/95 cyber-grid relative overflow-hidden">
+    <section id="projects" className="py-16 sm:py-20 md:py-28 2xl:py-36 bg-black/95 cyber-grid relative overflow-hidden">
       <div className="glow-bg-green top-1/4 right-10 w-[600px] h-[500px] opacity-15"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl 2xl:max-w-[1550px] 3xl:max-w-[1800px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 mb-12 border-b border-emerald-500/20 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between pb-6 mb-8 sm:pb-8 sm:mb-12 border-b border-emerald-500/20 gap-4">
           <div>
             <div className="flex items-center gap-2 text-emerald-400 font-cyber text-xs uppercase tracking-widest mb-1">
               <Code2 className="w-4 h-4" />
               <span>PRODUCTION APPS & SYSTEMS</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight uppercase">
+            <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-extrabold text-white tracking-tight uppercase">
               FEATURED <span className="text-neon-green text-gradient-green">PROJECTS</span>
             </h2>
-            <p className="text-sm text-slate-400 max-w-xl mt-2">
+            <p className="text-xs sm:text-sm text-slate-400 max-w-xl 2xl:max-w-2xl mt-2">
               Live web applications engineered with modern React, TypeScript, and robust security practices. Each project is deployed and accessible online.
             </p>
           </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2 font-cyber text-xs">
+          {/* Filter Pills - smooth touch scrollable row on mobile */}
+          <div className="flex items-center gap-1.5 sm:gap-2 font-cyber text-xs overflow-x-auto pb-1.5 sm:pb-0 no-scrollbar -mx-1 px-1 sm:mx-0 sm:px-0 sm:flex-wrap">
             {(['All', 'Web App', 'E-Commerce', 'EdTech'] as const).map((filter) => (
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
-                className={`px-3.5 py-1.5 rounded-lg border transition-all ${
+                className={`px-3 sm:px-3.5 py-1.5 min-h-[38px] rounded-lg border whitespace-nowrap transition-all ${
                   selectedFilter === filter
                     ? 'bg-emerald-500 border-emerald-400 text-black font-bold shadow-neon-green-sm'
                     : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
@@ -64,8 +64,8 @@ export const CyberProjects: React.FC<CyberProjectsProps> = ({ onOpenContact }) =
           </div>
         </div>
 
-        {/* Project Cards Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* Project Cards Grid (1 col on mobile, 2 cols on laptop, 3 cols on large TV/screens) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 3xl:grid-cols-3 gap-6 sm:gap-8 2xl:gap-10">
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}

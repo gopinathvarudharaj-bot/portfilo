@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 import { personalInfo, education, certifications, softwareBadges, experiences, aboutPillars } from '../config/portfolioConfig';
+import { PersonalInfo } from '../types';
 import {
   Mail,
   Phone,
@@ -22,18 +23,68 @@ import {
   Code2,
   ShieldAlert,
   Compass,
-  Fingerprint
+  Fingerprint,
+  Camera,
+  Upload,
+  UserCheck
 } from 'lucide-react';
 
 interface CyberAboutMeProps {
   onOpenContact: () => void;
   onOpenResume: () => void;
+  personalInfo?: PersonalInfo;
+  onUpdateAvatar?: (avatarUrl: string) => void;
 }
 
-export const CyberAboutMe: React.FC<CyberAboutMeProps> = ({ onOpenContact, onOpenResume }) => {
+export const CyberAboutMe: React.FC<CyberAboutMeProps> = ({
+  onOpenContact,
+  onOpenResume,
+  personalInfo: propPersonalInfo,
+  onUpdateAvatar
+}) => {
   const [copied, setCopied] = useState(false);
   const [activeBadge, setActiveBadge] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'origin' | 'security' | 'philosophy' | 'future'>('origin');
+
+  // Avatar state with persistence and local file drop support
+  const activeInfo = propPersonalInfo || personalInfo;
+  const [currentAvatar, setCurrentAvatar] = useState<string>(() => {
+    return localStorage.getItem('portfolio_avatar') || activeInfo.avatarUrl || '/image.png';
+  });
+  const [imageError, setImageError] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleProcessFile = (file: File) => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      if (result) {
+        setCurrentAvatar(result);
+        setImageError(false);
+        try {
+          localStorage.setItem('portfolio_avatar', result);
+        } catch (err) {
+          console.warn('LocalStorage quota exceeded for image, caching in memory:', err);
+        }
+        onUpdateAvatar?.(result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handleProcessFile(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleProcessFile(file);
+  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(personalInfo.email);
@@ -56,33 +107,33 @@ export const CyberAboutMe: React.FC<CyberAboutMeProps> = ({ onOpenContact, onOpe
   };
 
   return (
-    <section id="about" className="py-20 md:py-28 bg-black cyber-grid-dense relative overflow-hidden border-t border-b border-emerald-500/20">
+    <section id="about" className="py-16 sm:py-20 md:py-28 2xl:py-36 bg-black cyber-grid-dense relative overflow-hidden border-t border-b border-emerald-500/20">
       {/* Background ambient green light */}
       <div className="glow-bg-green top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[600px] opacity-15"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl 2xl:max-w-[1550px] 3xl:max-w-[1800px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12 relative z-10">
         
         {/* Section Header with Crosshair / Editorial line like screenshot */}
-        <div className="flex items-center justify-between pb-8 mb-12 border-b border-emerald-500/20">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-between pb-6 mb-8 sm:pb-8 sm:mb-12 border-b border-emerald-500/20 gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-400/60 flex items-center justify-center text-emerald-400 font-cyber font-bold text-xs">
               GV
             </div>
-            <span className="font-cyber text-xs text-slate-300 tracking-widest uppercase">
+            <span className="font-cyber text-[11px] sm:text-xs text-slate-300 tracking-widest uppercase">
               CYBER PORTFOLIO & BIOGRAPHY
             </span>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="h-px w-12 bg-emerald-500/40 hidden sm:inline-block"></span>
-            <h2 className="font-cyber text-base sm:text-xl font-extrabold text-white tracking-widest uppercase">
+            <span className="h-px w-8 sm:w-12 bg-emerald-500/40 hidden sm:inline-block"></span>
+            <h2 className="font-cyber text-sm sm:text-base md:text-xl font-extrabold text-white tracking-widest uppercase">
               — ABOUT ME —
             </h2>
           </div>
         </div>
 
         {/* 3D Poster Composition: Left Phone + Center Dev + Right Education & Contact Mockups */}
-        <div className="grid lg:grid-cols-12 gap-8 items-center">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 2xl:gap-10 items-center">
           
           {/* Left Column: 3D Phone Mockup (About Me) + Softwares Box */}
           <div className="lg:col-span-4 space-y-6">
@@ -114,7 +165,7 @@ export const CyberAboutMe: React.FC<CyberAboutMeProps> = ({ onOpenContact, onOpe
               </h3>
 
               <p className="text-xs text-slate-300 leading-relaxed mb-3">
-                Hello, I'm <strong className="text-emerald-400 font-bold">Gopinath V</strong>. I am a III Year / V Semester B.E. Computer Science and Engineering (Cyber Security) undergraduate at <strong>K.S.R College of Engineering (Batch 2024–2028)</strong>, hailing from Kadayanallur, Tamil Nadu.
+                Hello, I'm <strong className="text-emerald-400 font-bold">Gopinath V</strong>. I am a III Year / V Semester B.E. Computer Science and Engineering (Cyber Security) undergraduate at <strong>K.S.R College of Engineering (Batch 2024–2028)</strong>, hailing from Namakkal, Tamil Nadu.
               </p>
 
               <p className="text-xs text-slate-300 leading-relaxed mb-3">
@@ -201,27 +252,78 @@ export const CyberAboutMe: React.FC<CyberAboutMeProps> = ({ onOpenContact, onOpe
               </svg>
             </div>
 
-            {/* Developer Portrait in Gaming/Tech Setup like screenshot */}
-            <div className="relative z-10 w-64 sm:w-72 aspect-[4/5] rounded-3xl overflow-hidden border-2 border-emerald-500/50 shadow-neon-green bg-gradient-to-b from-slate-900 to-black">
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
-                alt="Gopinath V — Full-Stack Developer & Cybersecurity Student"
-                className="w-full h-full object-cover object-top filter contrast-110 brightness-95"
+            {/* Developer Portrait in Gaming/Tech Setup - Matches User Card */}
+            <div
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragging(true);
+              }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={handleDrop}
+              className={`relative z-10 w-64 sm:w-72 aspect-[4/5] rounded-[30px] overflow-hidden border-2 transition-all duration-300 shadow-neon-green bg-gradient-to-b from-slate-900 via-slate-950 to-black -translate-y-2.5 sm:-translate-y-4 ${
+                isDragging
+                  ? 'border-emerald-400 scale-105 ring-4 ring-emerald-500/40'
+                  : 'border-emerald-500/60 hover:border-emerald-400'
+              }`}
+            >
+              {/* Hidden File Picker Input */}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileChange}
               />
-              
-              {/* Scanline overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-              
-              {/* Badge Overlay */}
-              <div className="absolute bottom-3 left-3 right-3 bg-black/85 backdrop-blur-md border border-emerald-500/40 rounded-xl px-3 py-2 text-left">
-                <span className="text-[10px] text-emerald-400 font-cyber font-bold block uppercase">
+
+              {/* Photo Display View */}
+              {currentAvatar && !imageError ? (
+                <div className="relative w-full h-full group overflow-hidden">
+                  <img
+                    src={currentAvatar}
+                    alt="Gopinath V — Full-Stack Developer & Cybersecurity Student"
+                    referrerPolicy="no-referrer"
+                    onError={() => setImageError(true)}
+                    className="w-full h-full object-cover object-top -translate-y-3 sm:-translate-y-3.5 scale-[1.06] filter contrast-105 brightness-100 transition-all duration-300 group-hover:brightness-95"
+                  />
+
+                  {/* Scanline overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none"></div>
+                  
+                  {/* Subtle Grid / HUD overlay */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.4)_100%)] pointer-events-none"></div>
+                </div>
+              ) : (
+                /* Cyber Silhouette Fallback & Dropzone */
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="w-full h-full flex flex-col items-center justify-center p-6 text-center cursor-pointer hover:bg-emerald-950/20 transition-all select-none group"
+                  title="Click or drag & drop your photo here"
+                >
+                  {/* Stylized Cyber Icon matching Gopinath's Look */}
+                  <div className="relative mb-3">
+                    <div className="w-20 h-20 rounded-full bg-emerald-950/80 border border-emerald-500/50 flex items-center justify-center text-emerald-400 group-hover:scale-110 group-hover:border-emerald-400 transition-transform">
+                      <Camera className="w-8 h-8 text-emerald-400 animate-pulse" />
+                    </div>
+                    <div className="absolute -bottom-1 -right-1 p-1 rounded-full bg-black border border-emerald-500/60 text-emerald-400">
+                      <Upload className="w-3 h-3" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Verified Badge Overlay at bottom of card — Exact Screenshot Match */}
+              <div className="absolute bottom-3 left-3 right-3 bg-black/90 backdrop-blur-md border border-emerald-500/50 rounded-2xl px-3.5 py-2.5 text-left z-20 pointer-events-none shadow-lg">
+                <span className="text-[10px] text-emerald-400 font-cyber font-bold block uppercase tracking-wider">
                   CYBER SECURITY UNDERGRAD
                 </span>
-                <span className="text-xs text-white font-bold block">
+                <span className="text-xs sm:text-[13px] text-white font-bold block">
                   K.S.R College of Engineering
                 </span>
               </div>
             </div>
+
+            {/* Sparkle Icon on Bottom Right like user screenshot */}
+            <Sparkles className="hidden sm:block absolute bottom-20 right-8 w-5 h-5 text-emerald-400/80 pointer-events-none animate-pulse" />
 
             {/* Name Graphic Typography matching "ANTONIO ESPANA" in screenshot */}
             <div className="mt-5 relative z-10 space-y-1">
@@ -232,7 +334,7 @@ export const CyberAboutMe: React.FC<CyberAboutMeProps> = ({ onOpenContact, onOpe
                 CYBER SECURITY & FULL-STACK DEVELOPER
               </p>
               <p className="font-cyber text-[11px] text-emerald-400">
-                KADAYANALLUR, TAMIL NADU, INDIA
+                NAMAKKAL, TAMIL NADU, INDIA
               </p>
             </div>
 
@@ -442,7 +544,7 @@ export const CyberAboutMe: React.FC<CyberAboutMeProps> = ({ onOpenContact, onOpe
                   {personalInfo.aboutStory.origin}
                 </p>
                 <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                  From my hometown of Kadayanallur, I spent my formative school years exploring computer systems, learning Java, navigating Linux distributions, and inspecting how packets traverse routers and network protocols.
+                  From my hometown of Namakkal, I spent my formative school years exploring computer systems, learning Java, navigating Linux distributions, and inspecting how packets traverse routers and network protocols.
                 </p>
               </motion.div>
             )}

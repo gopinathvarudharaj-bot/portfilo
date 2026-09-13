@@ -12,18 +12,37 @@ import { CyberContact } from './components/CyberContact';
 import { CyberFooter } from './components/CyberFooter';
 import { ProfileQuestionnaireModal } from './components/ProfileQuestionnaireModal';
 import { ResumeModal } from './components/ResumeModal';
+import { PortfolioPromptModal } from './components/PortfolioPromptModal';
 import { CyberWhatsAppWidget } from './components/CyberWhatsAppWidget';
 
 export default function App() {
-  const [personalData, setPersonalData] = useState<PersonalInfo>(initialPersonalInfo);
+  const [personalData, setPersonalData] = useState<PersonalInfo>(() => {
+    const savedAvatar = typeof window !== 'undefined' ? localStorage.getItem('portfolio_avatar') : null;
+    if (savedAvatar) {
+      return { ...initialPersonalInfo, avatarUrl: savedAvatar };
+    }
+    return initialPersonalInfo;
+  });
   const [questionnaireOpen, setQuestionnaireOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
+  const [promptModalOpen, setPromptModalOpen] = useState(false);
 
   const handleUpdateInfo = (updated: Partial<PersonalInfo>) => {
     setPersonalData(prev => ({
       ...prev,
       ...updated
     }));
+    if (updated.avatarUrl) {
+      try {
+        localStorage.setItem('portfolio_avatar', updated.avatarUrl);
+      } catch (e) {
+        console.warn('Could not persist avatar to localStorage:', e);
+      }
+    }
+  };
+
+  const handleAvatarUpdate = (newAvatarUrl: string) => {
+    handleUpdateInfo({ avatarUrl: newAvatarUrl });
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -40,12 +59,13 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-slate-100 selection:bg-emerald-500 selection:text-black">
+    <div className="min-h-screen bg-black text-slate-100 selection:bg-emerald-500 selection:text-black">
       {/* Cyber Sticky Navigation */}
       <CyberNavbar
         onOpenQuestionnaire={() => setQuestionnaireOpen(true)}
         onOpenResume={() => setResumeOpen(true)}
         onOpenContact={() => scrollToSection('#contact')}
+        onOpenPromptModal={() => setPromptModalOpen(true)}
       />
 
       {/* Main Sections */}
@@ -56,12 +76,16 @@ export default function App() {
           onOpenResume={() => setResumeOpen(true)}
           onOpenQuestionnaire={() => setQuestionnaireOpen(true)}
           onViewProjects={() => scrollToSection('#projects')}
+          onOpenPromptModal={() => setPromptModalOpen(true)}
+          personalInfo={personalData}
         />
 
         {/* 2. Featured Section: ABOUT ME with 3D Phone Mockups & Software Badges matching image */}
         <CyberAboutMe
           onOpenContact={() => scrollToSection('#contact')}
           onOpenResume={() => setResumeOpen(true)}
+          personalInfo={personalData}
+          onUpdateAvatar={handleAvatarUpdate}
         />
 
         {/* 3. Featured Live Projects (ZenJournal, NutriTrack, Fresh Farm, Alumni System) */}
@@ -87,9 +111,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <CyberFooter
-        onOpenQuestionnaire={() => setQuestionnaireOpen(true)}
-      />
+      <CyberFooter />
 
       {/* Floating Direct WhatsApp Widget */}
       <CyberWhatsAppWidget />
@@ -106,6 +128,13 @@ export default function App() {
       <ResumeModal
         isOpen={resumeOpen}
         onClose={() => setResumeOpen(false)}
+      />
+
+      {/* Portfolio Prompt & Personal Details Modal */}
+      <PortfolioPromptModal
+        isOpen={promptModalOpen}
+        onClose={() => setPromptModalOpen(false)}
+        onOpenCustomize={() => setQuestionnaireOpen(true)}
       />
     </div>
   );

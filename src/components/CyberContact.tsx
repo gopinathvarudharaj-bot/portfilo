@@ -46,26 +46,26 @@ export const CyberContact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-black cyber-grid relative overflow-hidden border-t border-emerald-500/20">
+    <section id="contact" className="py-16 sm:py-20 md:py-28 2xl:py-36 bg-black cyber-grid relative overflow-hidden border-t border-emerald-500/20">
       <div className="glow-bg-green bottom-0 left-1/3 w-[600px] h-[500px] opacity-15"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl 2xl:max-w-[1550px] 3xl:max-w-[1800px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl 2xl:max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-xs font-cyber text-emerald-300 uppercase tracking-widest mb-3">
             <Terminal className="w-3.5 h-3.5 text-emerald-400" />
             <span>ESTABLISH SECURE LINK</span>
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-black text-white tracking-tight uppercase">
+          <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-black text-white tracking-tight uppercase">
             LET'S <span className="text-neon-green text-gradient-green">CONNECT</span>
           </h2>
-          <p className="text-sm text-slate-400 mt-2">
+          <p className="text-xs sm:text-sm text-slate-400 mt-2">
             Interested in internships, technical collaborations, cybersecurity projects, or discussing full-stack engineering? Reach out directly.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 2xl:gap-12 items-start">
           
           {/* Left Info Column */}
           <div className="lg:col-span-5 space-y-6">

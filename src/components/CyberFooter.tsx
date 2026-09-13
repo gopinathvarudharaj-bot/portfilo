@@ -1,76 +1,91 @@
 import React from 'react';
 import { personalInfo } from '../config/portfolioConfig';
-import { Terminal, Shield, ArrowUp, Heart, Sparkles } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, Instagram, Mail, MessageCircle } from 'lucide-react';
 
-interface CyberFooterProps {
-  onOpenQuestionnaire: () => void;
-}
-
-export const CyberFooter: React.FC<CyberFooterProps> = ({ onOpenQuestionnaire }) => {
+export const CyberFooter: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      icon: Github,
+      href: personalInfo.github,
+      title: 'GitHub Profile'
+    },
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
+      href: personalInfo.linkedin,
+      title: 'LinkedIn Profile'
+    },
+    {
+      name: 'Instagram',
+      icon: Instagram,
+      href: personalInfo.instagram,
+      title: 'Instagram Profile'
+    },
+    {
+      name: 'Email',
+      icon: Mail,
+      href: `mailto:${personalInfo.email}`,
+      title: 'Send Email'
+    },
+    {
+      name: 'WhatsApp',
+      icon: MessageCircle,
+      href: `https://wa.me/${personalInfo.whatsappNumber}?text=Hi%20Gopinath,%20I%20viewed%20your%20portfolio`,
+      title: 'WhatsApp Chat'
+    }
+  ];
+
   return (
-    <footer className="bg-black border-t border-emerald-500/20 py-12 relative overflow-hidden mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <footer className="bg-black border-t border-emerald-500/20 py-8 relative overflow-hidden">
+      <div className="max-w-7xl 2xl:max-w-[1550px] 3xl:max-w-[1800px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12 relative z-10 flex flex-col md:flex-row items-center justify-between text-[11px] 2xl:text-xs font-cyber text-slate-400 gap-4 text-center md:text-left">
         
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-emerald-500/10">
-          
-          {/* Logo & Headline */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/50 flex items-center justify-center text-emerald-400 font-cyber font-black text-sm shadow-neon-green-sm">
-              GV
-            </div>
-            <div>
-              <span className="font-cyber font-bold text-white uppercase tracking-wider text-sm block">
-                {personalInfo.name} — PORTFOLIO
-              </span>
-              <span className="text-[11px] text-emerald-400 font-cyber block">
-                Full-Stack Developer & B.E. CSE (Cyber Security) @ K.S.R
-              </span>
-            </div>
-          </div>
+        {/* Simple Copyright */}
+        <div className="flex items-center gap-2 text-slate-500">
+          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span>
+            © {new Date().getFullYear()} {personalInfo.name}. All rights reserved. {personalInfo.location}.
+          </span>
+        </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-cyber text-slate-400">
-            <a href="#home" className="hover:text-emerald-400 transition-colors">HOME</a>
-            <a href="#about" className="hover:text-emerald-400 transition-colors">ABOUT ME</a>
-            <a href="#projects" className="hover:text-emerald-400 transition-colors">PROJECTS</a>
-            <a href="#skills" className="hover:text-emerald-400 transition-colors">SKILLS</a>
-            <a href="#certifications" className="hover:text-emerald-400 transition-colors">CERTIFICATES</a>
-            <a href="#journey" className="hover:text-emerald-400 transition-colors">JOURNEY</a>
-            <button
-              onClick={onOpenQuestionnaire}
-              className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
-            >
-              <Sparkles className="w-3 h-3" />
-              <span>CUSTOMIZE PROFILE</span>
-            </button>
-          </div>
+        {/* Social Links */}
+        <div className="flex items-center gap-3">
+          {socialLinks.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={item.title}
+                className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 hover:bg-slate-800 transition-all shadow-sm"
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            );
+          })}
+        </div>
 
-          {/* Scroll to Top */}
+        {/* Back to Top */}
+        <div className="flex items-center gap-3">
           <button
             onClick={scrollToTop}
-            className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-emerald-500/40 transition-colors"
+            className="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-colors flex items-center gap-1.5"
             title="Scroll to top"
           >
             <ArrowUp className="w-4 h-4" />
+            <span className="text-[10px] uppercase font-cyber tracking-wider">Top</span>
           </button>
-
-        </div>
-
-        {/* Bottom copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] font-cyber text-slate-500 gap-2">
-          <span>
-            © {new Date().getFullYear()} {personalInfo.name}. All rights reserved. Kadayanallur, Tamil Nadu.
-          </span>
-          <span className="flex items-center gap-1">
-            Engineered with React, TypeScript & Cyber Aesthetic
-          </span>
         </div>
 
       </div>
     </footer>
   );
 };
+
+

@@ -151,33 +151,33 @@ export const CyberMilestones: React.FC<CyberMilestonesProps> = ({ onOpenResume }
   };
 
   return (
-    <section id="journey" className="py-20 md:py-28 bg-black/90 cyber-grid relative overflow-hidden border-t border-emerald-500/20">
+    <section id="journey" className="py-16 sm:py-20 md:py-28 2xl:py-36 bg-black/90 cyber-grid relative overflow-hidden border-t border-emerald-500/20">
       <div className="glow-bg-green top-1/2 left-10 w-[600px] h-[600px] opacity-10"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl 2xl:max-w-[1550px] 3xl:max-w-[1800px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12 relative z-10">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 mb-12 border-b border-emerald-500/20 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between pb-6 mb-8 sm:pb-8 sm:mb-12 border-b border-emerald-500/20 gap-4">
           <div>
             <div className="flex items-center gap-2 text-emerald-400 font-cyber text-xs uppercase tracking-widest mb-1">
               <Compass className="w-4 h-4" />
               <span>ACADEMIC & TECHNICAL MILESTONES</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight uppercase">
+            <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-extrabold text-white tracking-tight uppercase">
               JOURNEY & <span className="text-neon-green text-gradient-green">EXPERIENCE</span>
             </h2>
-            <p className="text-sm text-slate-400 max-w-xl mt-2">
-              From early programming curiosity in Kadayanallur to cybersecurity studies at K.S.R College of Engineering, hands-on internships, and AWS cloud certification.
+            <p className="text-xs sm:text-sm text-slate-400 max-w-xl 2xl:max-w-2xl mt-2">
+              From early programming curiosity in Namakkal to cybersecurity studies at K.S.R. College of Engineering, hands-on internships, and AWS cloud certification.
             </p>
           </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap gap-2 font-cyber text-xs">
+          {/* Filter Pills - smooth touch scrollable row on mobile without awkward lone wrapped pill */}
+          <div className="flex items-center gap-1.5 sm:gap-2 font-cyber text-xs overflow-x-auto pb-1.5 sm:pb-0 no-scrollbar -mx-1 px-1 sm:mx-0 sm:px-0 sm:flex-wrap">
             {(['All', 'Academics', 'Internship', 'Certification', 'Project'] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-3.5 py-1.5 rounded-lg border transition-all ${
+                className={`px-3 sm:px-3.5 py-1.5 min-h-[38px] rounded-lg border whitespace-nowrap transition-all ${
                   filter === cat
                     ? 'bg-emerald-500 border-emerald-400 text-black font-bold shadow-neon-green-sm'
                     : 'bg-slate-950/80 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
@@ -189,44 +189,62 @@ export const CyberMilestones: React.FC<CyberMilestonesProps> = ({ onOpenResume }
           </div>
         </div>
 
-        {/* Quick Metrics Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-14">
-          <div className="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 text-center">
-            <span className="font-display text-2xl sm:text-3xl font-black text-emerald-400 block">
+        {/* Quick Metrics Strip - 100% immune to overflow with stacked numbers and labels */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 2xl:gap-6 mb-10 sm:mb-14">
+          <div className="p-3 sm:p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 hover:border-emerald-400/60 transition-all flex flex-col items-center justify-center text-center shadow-neon-green-sm group overflow-hidden">
+            <span className="font-cyber text-xl sm:text-2xl lg:text-3xl font-black text-emerald-400 block tracking-tight group-hover:scale-105 transition-transform">
               2024–28
             </span>
-            <span className="text-[11px] font-cyber text-slate-300 uppercase tracking-wider">
-              B.E. CSE (Cyber Security)
+            <span className="text-[10px] sm:text-[11px] font-cyber text-slate-300 uppercase tracking-wider mt-1 block">
+              B.E. CSE (CyberSec)
             </span>
           </div>
-          <div className="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 text-center">
-            <span className="font-display text-2xl sm:text-3xl font-black text-emerald-400 block">
-              2 INTERNSHIPS
-            </span>
-            <span className="text-[11px] font-cyber text-slate-300 uppercase tracking-wider">
-              Imagecon & Pargavan Cyyber
+
+          <div className="p-3 sm:p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 hover:border-emerald-400/60 transition-all flex flex-col items-center justify-center text-center shadow-neon-green-sm group overflow-hidden">
+            <div className="flex flex-col items-center group-hover:scale-105 transition-transform">
+              <span className="font-cyber text-2xl sm:text-3xl font-black text-emerald-400 leading-tight">
+                2
+              </span>
+              <span className="font-cyber text-[10px] sm:text-xs font-bold text-emerald-300 tracking-wider uppercase mt-0.5">
+                INTERNSHIPS
+              </span>
+            </div>
+            <span className="text-[9px] sm:text-[11px] font-cyber text-slate-300 tracking-tight mt-1 truncate max-w-full">
+              Imagecon & Pargavan
             </span>
           </div>
-          <div className="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 text-center">
-            <span className="font-display text-2xl sm:text-3xl font-black text-emerald-400 block">
-              AWS CERTIFIED
-            </span>
-            <span className="text-[11px] font-cyber text-slate-300 uppercase tracking-wider">
+
+          <div className="p-3 sm:p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 hover:border-emerald-400/60 transition-all flex flex-col items-center justify-center text-center shadow-neon-green-sm group overflow-hidden">
+            <div className="flex flex-col items-center group-hover:scale-105 transition-transform">
+              <span className="font-cyber text-xl sm:text-2xl lg:text-3xl font-black text-emerald-400 leading-tight">
+                AWS
+              </span>
+              <span className="font-cyber text-[10px] sm:text-xs font-bold text-emerald-300 tracking-wider uppercase mt-0.5">
+                CERTIFIED
+              </span>
+            </div>
+            <span className="text-[9px] sm:text-[11px] font-cyber text-slate-300 tracking-tight mt-1 truncate max-w-full">
               Cloud Practitioner
             </span>
           </div>
-          <div className="p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 text-center">
-            <span className="font-display text-2xl sm:text-3xl font-black text-emerald-400 block">
-              4+ LIVE APPS
-            </span>
-            <span className="text-[11px] font-cyber text-slate-300 uppercase tracking-wider">
-              React, TypeScript, Firebase
+
+          <div className="p-3 sm:p-4 rounded-2xl bg-slate-950/90 border border-emerald-500/30 hover:border-emerald-400/60 transition-all flex flex-col items-center justify-center text-center shadow-neon-green-sm group overflow-hidden">
+            <div className="flex flex-col items-center group-hover:scale-105 transition-transform">
+              <span className="font-cyber text-2xl sm:text-3xl font-black text-emerald-400 leading-tight">
+                4+
+              </span>
+              <span className="font-cyber text-[10px] sm:text-xs font-bold text-emerald-300 tracking-wider uppercase mt-0.5">
+                LIVE APPS
+              </span>
+            </div>
+            <span className="text-[9px] sm:text-[11px] font-cyber text-slate-300 tracking-tight mt-1 truncate max-w-full">
+              React • TS • Firebase
             </span>
           </div>
         </div>
 
-        {/* Milestones Timeline Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Milestones Timeline Grid (1 col mobile, 2 col tablet/laptop, 3 col desktop, 4 col TV screens) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-4 sm:gap-6 2xl:gap-8">
           {filteredMilestones.map((item, index) => (
             <motion.div
               key={item.id}

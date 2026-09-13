@@ -44,7 +44,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-4xl bg-slate-950 border border-emerald-500/40 rounded-3xl shadow-2xl overflow-hidden z-10 my-6 text-slate-100 print:border-none print:bg-white print:text-black print:rounded-none"
+          className="relative w-full max-w-4xl 2xl:max-w-5xl 3xl:max-w-6xl max-h-[92vh] flex flex-col bg-slate-950 border border-emerald-500/40 rounded-3xl shadow-2xl overflow-hidden z-10 my-4 text-slate-100 print:border-none print:bg-white print:text-black print:rounded-none"
         >
           {/* Action Bar (Top) */}
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-800 bg-black/60 print:hidden">

@@ -15,7 +15,9 @@ import {
   Briefcase,
   Share2,
   RefreshCw,
-  ExternalLink
+  ExternalLink,
+  Camera,
+  Upload
 } from 'lucide-react';
 
 interface ProfileQuestionnaireModalProps {
@@ -111,7 +113,7 @@ Batch: 2024–2028 (K.S.R College of Engineering - B.E. CSE Cyber Security)
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-3xl bg-slate-950 border border-emerald-500/40 rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden z-10 my-8"
+          className="relative w-full max-w-3xl 2xl:max-w-4xl max-h-[92vh] flex flex-col bg-slate-950 border border-emerald-500/40 rounded-3xl shadow-2xl shadow-emerald-500/10 overflow-hidden z-10 my-4 sm:my-8"
         >
           {/* Header */}
           <div className="flex items-center justify-between p-5 sm:p-6 border-b border-emerald-500/20 bg-emerald-950/20">
@@ -120,7 +122,7 @@ Batch: 2024–2028 (K.S.R College of Engineering - B.E. CSE Cyber Security)
                 <Sparkles className="w-5 h-5 animate-spin" />
               </div>
               <div>
-                <h3 className="font-cyber text-lg sm:text-xl font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <h3 className="font-cyber text-base sm:text-lg md:text-xl font-bold text-white uppercase tracking-wider flex items-center gap-2">
                   PORTFOLIO QUESTIONNAIRE & PROFILE BUILDER
                 </h3>
                 <p className="text-xs text-slate-400">
@@ -247,15 +249,50 @@ Batch: 2024–2028 (K.S.R College of Engineering - B.E. CSE Cyber Security)
 
                 <div>
                   <label className="block text-xs font-cyber text-slate-300 uppercase tracking-wider mb-1.5">
-                    Custom Photo / Avatar Image URL (Optional)
+                    Profile Photo / Portfolio Image
                   </label>
-                  <input
-                    type="url"
-                    value={formData.avatarUrl}
-                    onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:border-emerald-500 focus:outline-none"
-                    placeholder="https://images.unsplash.com/... or your public image URL"
-                  />
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="flex-1 cursor-pointer flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-950/60 border border-emerald-500/50 hover:border-emerald-400 text-xs font-cyber text-emerald-300 hover:text-emerald-200 transition-colors shadow-neon-green-sm">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>UPLOAD PHOTO FILE (PNG / JPG)</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = (ev) => {
+                                const res = ev.target?.result as string;
+                                if (res) {
+                                  setFormData({ ...formData, avatarUrl: res });
+                                }
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                      </label>
+                      {formData.avatarUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, avatarUrl: '' })}
+                          className="px-3 py-2.5 rounded-xl bg-red-950/40 border border-red-500/30 text-xs text-red-400 hover:text-red-300"
+                        >
+                          Clear
+                        </button>
+                      )}
+                    </div>
+                    <input
+                      type="text"
+                      value={formData.avatarUrl}
+                      onChange={(e) => setFormData({ ...formData, avatarUrl: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:border-emerald-500 focus:outline-none"
+                      placeholder="Or enter image URL (e.g. /image.png or https://...)"
+                    />
+                  </div>
                 </div>
               </div>
             )}

@@ -9,19 +9,22 @@ import {
   X,
   Phone,
   MessageSquare,
-  ExternalLink
+  ExternalLink,
+  Copy
 } from 'lucide-react';
 
 interface CyberNavbarProps {
   onOpenQuestionnaire: () => void;
   onOpenResume: () => void;
   onOpenContact: () => void;
+  onOpenPromptModal?: () => void;
 }
 
 export const CyberNavbar: React.FC<CyberNavbarProps> = ({
   onOpenQuestionnaire,
   onOpenResume,
-  onOpenContact
+  onOpenContact,
+  onOpenPromptModal
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -35,12 +38,12 @@ export const CyberNavbar: React.FC<CyberNavbarProps> = ({
   }, []);
 
   const navLinks = [
-    { name: 'ABOUT', href: '#about' },
-    { name: 'JOURNEY', href: '#journey' },
+    { name: 'HOME', href: '#home' },
+    { name: 'ABOUT ME', href: '#about' },
     { name: 'PROJECTS', href: '#projects' },
     { name: 'SKILLS', href: '#skills' },
-    { name: 'CERTIFICATIONS', href: '#certifications' },
-    { name: 'CONTACT', href: '#contact' }
+    { name: 'CERTIFICATES', href: '#certifications' },
+    { name: 'JOURNEY', href: '#journey' }
   ];
 
   return (
@@ -48,54 +51,65 @@ export const CyberNavbar: React.FC<CyberNavbarProps> = ({
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
           ? 'bg-black/90 backdrop-blur-md border-b border-emerald-500/30 py-3 shadow-2xl'
-          : 'bg-black/50 backdrop-blur-sm border-b border-white/5 py-4'
+          : 'bg-black/70 backdrop-blur-sm border-b border-emerald-500/20 py-3.5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="max-w-7xl 2xl:max-w-[1550px] 3xl:max-w-[1800px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12 flex items-center justify-between gap-2 sm:gap-4">
         
-        {/* Brand Logo & Name */}
-        <a href="#home" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-400/60 flex items-center justify-center text-emerald-400 font-cyber font-black text-xs group-hover:scale-105 group-hover:border-emerald-400 shadow-neon-green-sm transition-all">
+        {/* Brand Logo & Headline */}
+        <a href="#home" className="flex items-center gap-2 sm:gap-3 group min-w-0 flex-shrink">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/50 flex items-center justify-center text-emerald-400 font-cyber font-black text-xs sm:text-sm group-hover:scale-105 group-hover:border-emerald-400 shadow-neon-green-sm transition-all flex-shrink-0">
             GV
           </div>
-          <div>
-            <span className="font-cyber font-extrabold text-sm tracking-wider text-white group-hover:text-emerald-400 transition-colors uppercase block">
-              {personalInfo.name}
+          <div className="leading-tight min-w-0">
+            <span className="font-cyber font-bold text-xs sm:text-sm tracking-wider text-white group-hover:text-emerald-400 transition-colors uppercase block truncate">
+              {personalInfo.name} <span className="hidden xs:inline">— PORTFOLIO</span>
             </span>
-            <span className="text-[10px] font-cyber text-emerald-400/80 tracking-widest block uppercase">
-              CYBER & DEV
+            <span className="text-[9px] sm:text-[11px] text-emerald-400 font-cyber tracking-tight block truncate max-w-[210px] sm:max-w-none">
+              Full-Stack Developer & Cyber Security @ K.S.R.
             </span>
           </div>
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-2.5 xl:gap-5 2xl:gap-6">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-xs font-cyber tracking-widest text-slate-300 hover:text-emerald-400 transition-colors py-1 relative group"
+              className="text-[11px] xl:text-xs 2xl:text-sm font-cyber tracking-wider text-slate-300 hover:text-emerald-400 transition-colors py-1 relative group whitespace-nowrap"
             >
               {link.name}
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-400 transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
-        </nav>
 
-        {/* Action CTAs */}
-        <div className="hidden sm:flex items-center gap-2.5">
+          {onOpenPromptModal && (
+            <button
+              onClick={onOpenPromptModal}
+              className="text-[11px] xl:text-xs 2xl:text-sm font-cyber tracking-wider text-emerald-300 hover:text-emerald-200 transition-all py-1.5 px-2.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 flex items-center gap-1 font-bold whitespace-nowrap shadow-neon-green-sm"
+              title="Copy portfolio prompts & personal details"
+            >
+              <span className="text-emerald-400 font-mono font-black">&gt;_</span>
+              <span>PORTFOLIO PROMPT</span>
+            </button>
+          )}
+
           <button
             onClick={onOpenQuestionnaire}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60 hover:text-white text-xs font-cyber transition-all"
-            title="Answer questions to personalize your portfolio"
+            className="text-[11px] xl:text-xs 2xl:text-sm font-cyber tracking-wider text-slate-300 hover:text-emerald-300 transition-colors py-1 flex items-center gap-1 whitespace-nowrap"
+            title="Customize details"
           >
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-spin" />
-            <span className="hidden md:inline">Customize Info</span>
+            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+            <span>CUSTOMIZE</span>
           </button>
+        </nav>
 
+        {/* Action CTAs for Laptop & TV screens */}
+        <div className="hidden xl:flex items-center gap-2.5 flex-shrink-0">
           <button
             onClick={onOpenResume}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-cyber transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs 2xl:text-sm font-cyber transition-colors"
           >
             <FileText className="w-3.5 h-3.5 text-emerald-400" />
             <span>Resume</span>
@@ -103,28 +117,24 @@ export const CyberNavbar: React.FC<CyberNavbarProps> = ({
 
           <button
             onClick={onOpenContact}
-            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-cyber font-bold tracking-wider uppercase transition-colors shadow-neon-green-sm"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs 2xl:text-sm font-cyber font-bold tracking-wider uppercase transition-colors shadow-neon-green-sm"
           >
             <MessageSquare className="w-3.5 h-3.5" />
             <span>Let's Talk</span>
           </button>
         </div>
 
-        {/* Mobile Hamburger Toggle */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <button
-            onClick={onOpenQuestionnaire}
-            className="p-2 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-xs"
-            title="Customize"
-          >
-            <Sparkles className="w-4 h-4" />
-          </button>
-
+        {/* Mobile & Tablet Navigation Toggle (Clean, single 44px touch target) */}
+        <div className="flex items-center lg:hidden flex-shrink-0">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-slate-900 text-slate-300 border border-slate-700 hover:text-white"
+            className="min-h-[42px] px-3.5 rounded-xl bg-slate-900 text-emerald-300 border border-emerald-500/50 hover:border-emerald-400 flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-sm"
+            aria-label="Toggle Navigation Menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-emerald-400" /> : <Menu className="w-5 h-5 text-emerald-400" />}
+            <span className="text-xs font-cyber font-bold uppercase tracking-wider">
+              {mobileMenuOpen ? 'CLOSE' : 'MENU'}
+            </span>
           </button>
         </div>
 
@@ -132,25 +142,52 @@ export const CyberNavbar: React.FC<CyberNavbarProps> = ({
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-black/95 border-b border-emerald-500/30 px-4 pt-3 pb-6 space-y-3 font-cyber text-sm">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-slate-300 hover:text-emerald-400 border-b border-slate-900 tracking-wider"
-            >
-              {link.name}
-            </a>
-          ))}
+        <div className="lg:hidden bg-slate-950/98 backdrop-blur-xl border-b border-emerald-500/30 px-4 pt-4 pb-6 space-y-3 font-cyber text-sm max-h-[85vh] overflow-y-auto">
+          <div className="flex flex-col space-y-1">
+            {navLinks.map((link, idx) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 px-3 rounded-lg text-slate-200 hover:text-emerald-400 hover:bg-emerald-500/10 border-b border-slate-900/60 tracking-wider flex items-center justify-between"
+              >
+                <span>{link.name}</span>
+                <span className="text-xs text-emerald-500/60 font-mono">0{idx + 1}</span>
+              </a>
+            ))}
+          </div>
 
-          <div className="pt-2 flex flex-col gap-2">
+          <div className="pt-3 flex flex-col gap-2.5 border-t border-emerald-500/20">
+            {onOpenPromptModal && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenPromptModal();
+                }}
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-emerald-950/80 text-emerald-300 border border-emerald-400/60 flex items-center justify-center gap-2 text-xs font-cyber font-bold active:scale-95 transition-all shadow-neon-green-sm"
+              >
+                <Terminal className="w-4 h-4 text-emerald-400" />
+                <span>&gt;_ PORTFOLIO PROMPT</span>
+              </button>
+            )}
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenQuestionnaire();
+              }}
+              className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 flex items-center justify-center gap-2 text-xs font-cyber font-bold active:scale-95 transition-all"
+            >
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+              <span>CUSTOMIZE</span>
+            </button>
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenResume();
               }}
-              className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-200 border border-slate-700 flex items-center justify-center gap-2 text-xs"
+              className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-700 hover:border-emerald-400 flex items-center justify-center gap-2 text-xs font-cyber font-bold active:scale-95 transition-all"
             >
               <FileText className="w-4 h-4 text-emerald-400" />
               <span>View Full Credentials Resume</span>
@@ -161,9 +198,10 @@ export const CyberNavbar: React.FC<CyberNavbarProps> = ({
                 setMobileMenuOpen(false);
                 onOpenContact();
               }}
-              className="w-full py-2.5 rounded-xl bg-emerald-500 text-black font-bold uppercase tracking-wider text-xs shadow-neon-green-sm"
+              className="w-full min-h-[46px] py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold uppercase tracking-wider text-xs sm:text-sm font-cyber flex items-center justify-center gap-2 shadow-neon-green active:scale-95 transition-all"
             >
-              Get In Touch / Connect
+              <MessageSquare className="w-4 h-4" />
+              <span>GET IN TOUCH / CONNECT</span>
             </button>
           </div>
         </div>

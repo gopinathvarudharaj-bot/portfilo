@@ -29,29 +29,29 @@ export const CyberCertifications: React.FC<CyberCertificationsProps> = ({ onOpen
   };
 
   return (
-    <section id="certifications" className="py-20 md:py-28 bg-black/95 cyber-grid relative overflow-hidden">
+    <section id="certifications" className="py-16 sm:py-20 md:py-28 2xl:py-36 bg-black/95 cyber-grid relative overflow-hidden">
       <div className="glow-bg-green top-1/2 left-1/4 w-[600px] h-[600px] opacity-15"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl 2xl:max-w-[1550px] 3xl:max-w-[1800px] mx-auto px-3 sm:px-6 lg:px-8 2xl:px-12 relative z-10">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between pb-8 mb-12 border-b border-emerald-500/20 gap-4">
+        <div className="flex flex-col md:flex-row md:items-end justify-between pb-6 mb-8 sm:pb-8 sm:mb-12 border-b border-emerald-500/20 gap-4">
           <div>
             <div className="flex items-center gap-2 text-emerald-400 font-cyber text-xs uppercase tracking-widest mb-1">
               <Award className="w-4 h-4" />
               <span>INDUSTRY CREDENTIALS & HANDS-ON INTERNSHIPS</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight uppercase">
+            <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-extrabold text-white tracking-tight uppercase">
               CERTIFIED <span className="text-neon-green text-gradient-green">EXPERIENCE</span>
             </h2>
-            <p className="text-sm text-slate-400 max-w-xl mt-2">
+            <p className="text-xs sm:text-sm text-slate-400 max-w-xl 2xl:max-w-2xl mt-2">
               Formal credentials and industry-grade internships confirming proficiency in cloud architecture, web applications, and cyber threat penetration testing.
             </p>
           </div>
 
           <button
             onClick={onOpenResume}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 text-xs font-cyber transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 min-h-[44px] rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/40 text-xs 2xl:text-sm font-cyber transition-all self-start md:self-auto"
           >
             <FileCheck className="w-4 h-4 text-emerald-400" />
             <span>View Full Resume & Credentials</span>
@@ -59,7 +59,7 @@ export const CyberCertifications: React.FC<CyberCertificationsProps> = ({ onOpen
         </div>
 
         {/* Certifications Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 sm:mb-16">
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.id}
